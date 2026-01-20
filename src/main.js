@@ -69,7 +69,6 @@ async function loadImages(isAppend = false) {
     }
 
     createGallery(data.hits);
-
     totalHits = data.totalHits;
 
     if (currentPage * 15 < totalHits) {
@@ -83,13 +82,18 @@ async function loadImages(isAppend = false) {
       });
     }
 
-    const card = document.querySelector('.gallery-item');
-    if (card) {
-      const cardHeight = card.getBoundingClientRect().height;
-      window.scrollBy({
-        top: cardHeight * 2,
-        behavior: 'smooth',
-      });
+    // Скролл вниз на добавленные карточки (поведение как у коллеги)
+    if (isAppend) {
+      const galleryItems = document.querySelectorAll('.gallery-item');
+      if (galleryItems.length > 0) {
+        const lastCard = galleryItems[galleryItems.length - 15];
+        const { height: cardHeight } = lastCard.getBoundingClientRect();
+
+        window.scrollBy({
+          top: cardHeight * 2,
+          behavior: 'smooth',
+        });
+      }
     }
   } catch (error) {
     iziToast.error({
