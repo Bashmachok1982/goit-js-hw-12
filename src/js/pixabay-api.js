@@ -3,29 +3,24 @@ import axios from 'axios';
 const BASE_URL = 'https://pixabay.com/api/';
 const API_KEY = '54231324-92d51f5acf633d69a742454d8';
 
-export function getImagesByQuery(query) {
+export async function getImagesByQuery(query, page = 1) {
   const params = {
     key: API_KEY,
     q: query,
     image_type: 'photo',
     orientation: 'horizontal',
     safesearch: true,
-    per_page: 12,
-    page: 1,
+    per_page: 15,
+    page: page,
   };
 
-  return axios
-    .get(BASE_URL, { params })
-    .then(response => response.data)
-    .catch(error => {
-      if (error.response) {
-        throw new Error(
-          `Pixabay error: ${error.response.status} - ${error.response.data}`
-        );
-      } else if (error.request) {
-        throw new Error('No response from Pixabay. Check internet connection.');
-      } else {
-        throw new Error(`Request setup error: ${error.message}`);
-      }
-    });
+  try {
+    const response = await axios.get(BASE_URL, { params });
+    return {
+      hits: response.data.hits,
+      totalHits: response.data.totalHits,
+    };
+  } catch (error) {
+    throw error;
+  }
 }

@@ -3,6 +3,7 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const galleryEl = document.querySelector('.gallery');
 const loaderEl = document.querySelector('.loader');
+const loadMoreBtn = document.querySelector('.load-more');
 
 const lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
@@ -28,7 +29,7 @@ export function createGallery(images) {
           <img
             class="gallery-image"
             src="${webformatURL}"
-            alt="${tags.replace(/"/g, '&quot;')}" 
+            alt="${tags.replace(/"/g, '&quot;')}"
             loading="lazy"
           />
         </a>
@@ -52,9 +53,17 @@ export function clearGallery() {
 }
 
 export function showLoader() {
-  if (loaderEl) loaderEl.classList.add('is-visible');
+  if (loaderEl) loaderEl.classList.remove('hidden');
 }
 
 export function hideLoader() {
-  if (loaderEl) loaderEl.classList.remove('is-visible');
+  if (loaderEl) loaderEl.classList.add('hidden');
+}
+
+export function showLoadMoreButton() {
+  if (loadMoreBtn) loadMoreBtn.classList.remove('hidden');
+}
+
+export function hideLoadMoreButton() {
+  if (loadMoreBtn) loadMoreBtn.classList.add('hidden');
 }

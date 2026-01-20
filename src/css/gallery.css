@@ -129,3 +129,28 @@
 .gallery-item:nth-child(8) {
   animation-delay: 0.8s;
 }
+
+.load-more {
+  display: block;
+  margin: 40px auto 0;
+  padding: 12px 32px;
+  background-color: #ff5722;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background-color 250ms ease;
+}
+
+.load-more:hover,
+.load-more:focus {
+  background-color: #ff7043;
+}
+.hidden {
+  display: none !important;
+}
