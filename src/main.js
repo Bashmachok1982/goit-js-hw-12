@@ -37,19 +37,24 @@ formEl.addEventListener('submit', event => {
 
   clearGallery();
   hideLoadMoreButton();
-  showLoader();
+
+  showLoader('center');
 
   loadImages();
 });
 
 loadMoreBtn.addEventListener('click', () => {
   currentPage += 1;
-  showLoader();
+
+  showLoader('inline');
+
   loadImages(true);
 });
 
 async function loadImages(isAppend = false) {
   try {
+    await new Promise(resolve => setTimeout(resolve, 300));
+
     const data = await getImagesByQuery(currentQuery, currentPage);
 
     if (data.hits.length === 0) {
@@ -82,7 +87,6 @@ async function loadImages(isAppend = false) {
       });
     }
 
-    // Скролл вниз на добавленные карточки (поведение как у коллеги)
     if (isAppend) {
       const galleryItems = document.querySelectorAll('.gallery-item');
       if (galleryItems.length > 0) {
@@ -103,6 +107,7 @@ async function loadImages(isAppend = false) {
     });
   } finally {
     hideLoader();
+
     formEl.reset();
   }
 }

@@ -52,12 +52,29 @@ export function clearGallery() {
   if (galleryEl) galleryEl.innerHTML = '';
 }
 
-export function showLoader() {
-  if (loaderEl) loaderEl.classList.remove('hidden');
+export function showLoader(mode = 'center') {
+  if (!loaderEl) return;
+
+  loaderEl.classList.remove('hidden');
+
+  loaderEl.classList.remove('centered', 'inline');
+
+  if (mode === 'center') {
+    loaderEl.classList.add('centered');
+  }
+
+  if (mode === 'inline') {
+    loadMoreBtn.classList.add('hidden');
+    loadMoreBtn.before(loaderEl);
+    loaderEl.classList.add('inline');
+  }
 }
 
 export function hideLoader() {
-  if (loaderEl) loaderEl.classList.add('hidden');
+  if (!loaderEl) return;
+
+  loaderEl.classList.add('hidden');
+  loaderEl.classList.remove('centered', 'inline');
 }
 
 export function showLoadMoreButton() {
